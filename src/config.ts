@@ -3,6 +3,9 @@
 export const config ={
     basename:"/Monitora",
     defaultPath:"",
-    fontFamily:"",
+    // 默认字体样式
+    fontFamily:`'Roboto', sans-serif`,
+    // 默认颜色
+    colorDefault:""
 }
 
