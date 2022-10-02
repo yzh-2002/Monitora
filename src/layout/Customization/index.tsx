@@ -21,6 +21,12 @@ import {
 } from "@mui/material";
 import { IconSettings } from "@tabler/icons";
 
+import PerfectScrollbar from "react-perfect-scrollbar"
+
+import  AnimateButton from "@/components/AnimateButton"
+import { gridSpacing } from "@/store/constant";
+import SubCard from "@/components/cards/SubCard"
+
 const Customization =()=>{
     const theme =useTheme();
     // 获取默认主题颜色和字体
@@ -76,16 +82,89 @@ const Customization =()=>{
                     onClick={handleToggle}
                     size="medium"
                     variant="circular"
-                    // color={}
+                    color="secondary"
                     sx={{
-
+                        borderRadius: 0,
+                        borderTopLeftRadius: '50%',
+                        borderBottomLeftRadius: '50%',
+                        borderTopRightRadius: '50%',
+                        borderBottomRightRadius: '4px',
+                        top: '25%',
+                        position: 'fixed',
+                        right: 10,
+                        zIndex: theme.zIndex.speedDial
                     }}
                 >
-                    {/*<AnimateButton type="rotate">*/}
-
-                    {/*</AnimateButton>*/}
+                    <AnimateButton  type="rotate">
+                        <IconButton color="inherit" size="large" disableRipple>
+                            <IconSettings></IconSettings>
+                        </IconButton>
+                    </AnimateButton>
                 </Fab>
             </Tooltip>
+
+            <Drawer
+                anchor="right"
+                onClose={handleToggle}
+                open={open}
+                PaperProps={{
+                    sx:{
+                        width:280
+                    }
+                }}
+            >
+                <PerfectScrollbar>
+                    <Grid container spacing={gridSpacing} sx={{p:3}}>
+                        <Grid item xs={12}>
+                        {/*  font family  */}
+                            <SubCard title="Font Family">
+                                <FormControl>
+                                    <RadioGroup
+                                        aria-label="font-family"
+                                        value={_font}
+                                        onChange={(e) => set_Font(e.target.value)}
+                                        name="row-radio-buttons-group"
+                                    >
+                                        <FormControlLabel
+                                            value="Roboto"
+                                            control={<Radio />}
+                                            label="Roboto"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': { fontSize: 28 },
+                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                            }}
+                                        />
+                                        <FormControlLabel
+                                            value="Poppins"
+                                            control={<Radio />}
+                                            label="Poppins"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': { fontSize: 28 },
+                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                            }}
+                                        />
+                                        <FormControlLabel
+                                            value="Inter"
+                                            control={<Radio />}
+                                            label="Inter"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': { fontSize: 28 },
+                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                            }}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </SubCard>
+                        </Grid>
+                        {/*<Grid item xs={12}>*/}
+                        {/*/!*  color  *!/*/}
+                        {/*/!*    <SubCard title="Global Color">*!/*/}
+
+                        {/*/!*    </SubCard>*!/*/}
+                        {/*</Grid>*/}
+                    </Grid>
+                </PerfectScrollbar>
+            </Drawer>
         </>
     )
 

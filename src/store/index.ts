@@ -15,3 +15,9 @@ export const FontStyle =atom({
     key:"MonitoraFont",
     default:config.fontFamily
 })
+
+// 首页左侧菜单栏的收起与折叠
+export const SideMenuOpened =atom({
+    key:"SideMenuOpened",
+    default:true
+})

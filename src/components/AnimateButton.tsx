@@ -11,21 +11,12 @@ interface scaleObject {
 
 interface AnimateButtonProps {
     children?: ReactElement | null,
-    type: 'slide' | 'scale' | 'rotate',
-    direction: 'up' | 'down' | 'left' | 'right',
-    offset: number,
-    scale: number | scaleObject
+    type?: 'slide' | 'scale' | 'rotate',
+    direction?: 'up' | 'down' | 'left' | 'right',
+    offset?: number,
+    scale?: number | scaleObject
 }
 
-export const defaultProps:AnimateButtonProps ={
-    type:'scale',
-    offset:10,
-    direction:'right',
-    scale:{
-        hover:1,
-        tap:0.9
-    }
-}
 
 const AnimateButton = forwardRef(
     ({ children, type, direction, offset, scale }:AnimateButtonProps,
@@ -102,5 +93,15 @@ const AnimateButton = forwardRef(
                 );
         }
 });
+
+AnimateButton.defaultProps ={
+    type:'scale',
+    offset:10,
+    direction:'right',
+    scale:{
+        hover:1,
+        tap:0.9
+    }
+}
 
 export default AnimateButton;
