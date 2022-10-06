@@ -23,7 +23,7 @@ export const SideMenuOpened =atom({
 })
 
 // 首页左侧菜单栏默认展开的menuItem
-export const SideMenuItemOpened =atom({
+export const SideMenuItemOpened =atom<string[]>({
     key:"SideMenuItemOpened",
     default:[]
 })

@@ -7,11 +7,12 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import { drawerWidth } from '@/store/constant';
 
 import LogoSection from "@/layout/MainLayout/LogoSection";
+import MenuList from "@/layout/MainLayout/Sidebar/MenuList";
 
 interface SidebarProps {
     drawerOpen:boolean,
-    drawerToggle:Function,
-    window:object
+    drawerToggle:any,
+    window?:object
 }
 
 const Sidebar =({ drawerOpen, drawerToggle, window }:SidebarProps)=>{
@@ -34,17 +35,44 @@ const Sidebar =({ drawerOpen, drawerToggle, window }:SidebarProps)=>{
                         paddingRight: '16px'
                     }}
                 >
-                    {/*<MenuList />*/}
-                    {/*<MenuCard />*/}
+                    <MenuList />
                 </PerfectScrollbar>
             </BrowserView>
             <MobileView>
                 <Box sx={{ px: 2 }}>
-                    {/*<MenuList />*/}
-                    {/*<MenuCard />*/}
+                    <MenuList />
                 </Box>
             </MobileView>
         </>
+    );
+    //@ts-ignore
+    const container = window !== undefined ? () => window.document.body : undefined;
+
+    return (
+        <Box component="nav" sx={{ flexShrink: { md: 0 }, width: matchUpMd ? drawerWidth : 'auto' }} aria-label="mailbox folders">
+            <Drawer
+                container={container}
+                variant={matchUpMd ? 'persistent' : 'temporary'}
+                anchor="left"
+                open={drawerOpen}
+                onClose={drawerToggle}
+                sx={{
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        background: theme.palette.background.default,
+                        color: theme.palette.text.primary,
+                        borderRight: 'none',
+                        [theme.breakpoints.up('md')]: {
+                            top: '88px'
+                        }
+                    }
+                }}
+                ModalProps={{ keepMounted: true }}
+                color="inherit"
+            >
+                {drawer}
+            </Drawer>
+        </Box>
     );
 }
 

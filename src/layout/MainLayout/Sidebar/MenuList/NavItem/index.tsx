@@ -1,4 +1,3 @@
-// 侧边菜单列表中的item（无子节点），还有一种带子节点的为NavCollapse
 import {forwardRef, ReactElement, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import {useRecoilState} from "recoil";
@@ -20,22 +19,10 @@ import { TablerIcon } from "@tabler/icons";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import { SideMenuItemOpened,SideMenuOpened } from "@/store";
-
-export interface ItemType {
-    id:string, //用于标识Item，和SideMenuItemOpened相关联
-    icon?:TablerIcon, //图标组件
-    title?:string,
-    url?:string, //点击按钮跳转到对应的url
-    breadcrumbs?:boolean, //
-    target?:boolean, //指定链接打开方式（_self:当前窗口，_blank:在新窗口打开）
-    external?:boolean //决定跳转方式，a或Link（感觉有点奇怪...）
-    disabled?:boolean, //是否禁用该按钮
-    caption?:string, //
-    chip?:ChipProps, //
-}
+import { MenuItemType } from "@/menu/menuType";
 
 interface NavItemProps {
-    item:ItemType,
+    item:MenuItemType,
     level:number
 }
 
@@ -79,12 +66,7 @@ const NavItem =({item,level}:NavItemProps)=>{
     }
 
     const itemHandler = (id:string) => {
-       // 点击之后，将其id添加到item展开数组中
-        // @ts-ignore
-        if (itemsOpened.indexOf(id)==-1){
-            // @ts-ignore
-            setItemsOpened(itemsOpened.concat([id]));
-        }
+        setItemsOpened([item.id]);
         if(matchesSM){
             // 如果页面过小，则点击之后需要关于菜单
             setSideMenuOpened(false);
@@ -97,13 +79,8 @@ const NavItem =({item,level}:NavItemProps)=>{
             .toString()
             .split('/')
             .findIndex((id) => id === item.id);
-        // 如果找到
         if (currentIndex > -1) {
-            // @ts-ignore
-            if (itemsOpened.indexOf(id)==-1){
-                // @ts-ignore
-                setItemsOpened(itemsOpened.concat([id]));
-            }
+           setItemsOpened([item.id])
         }
         // eslint-disable-next-line
     }, []);
@@ -139,15 +116,6 @@ const NavItem =({item,level}:NavItemProps)=>{
                     )
                 }
             />
-            {item.chip && (
-                <Chip
-                    color={item.chip.color}
-                    variant={item.chip.variant}
-                    size={item.chip.size}
-                    label={item.chip.label}
-                    avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
-                />
-            )}
         </ListItemButton>
     );
 
