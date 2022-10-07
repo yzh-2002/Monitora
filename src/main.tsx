@@ -24,7 +24,7 @@ const router =createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
       <RecoilRoot>
           <StyledEngineProvider injectFirst>
               <ThemeProvider theme={themes()}>
@@ -33,5 +33,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               </ThemeProvider>
           </StyledEngineProvider>
       </RecoilRoot>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

@@ -4,11 +4,11 @@ import {useMemo, useEffect, useState, useRef,useCallback} from "react";
 import {request} from "@/api/util"
 import {TopoData} from "@/topo/topoData";
 
-import SubCard from "@/components/cards/SubCard";
 import MainCard from "@/components/cards/MainCard";
 import {Grid, CircularProgress,useTheme,useMediaQuery} from "@mui/material";
-import { gridSpacing } from "@/store/constant";
 
+
+//TODO:画布大小未作适配
 const Topo =()=>{
     const theme =useTheme();
     // const match =useMediaQuery(theme.breakpoint.up('sm'));
@@ -63,55 +63,63 @@ const Topo =()=>{
     const initGraph =useCallback((graph:Graph | null)=>{
         const http =new request({
             method:"get"
-        })
+        },setLoading)
         http.get("http://127.0.0.1:4000/network").then(data=>{
-            graph =new G6.Graph({
-                container:topoContainer.current as unknown as HTMLElement,
-                width:1000,
-                height: 800,
-                fitView:true,
-                fitViewPadding:[20,40,50,20],
-                layout,
-                modes,
-                defaultEdge:{
-                    style:{
-                        lineWidth:3
+            if (!graph){
+                graph =new G6.Graph({
+                    container:topoContainer.current as unknown as HTMLElement,
+                    width:1500,
+                    height: 650,
+                    fitView:true,
+                    fitCenter:true,
+                    fitViewPadding:[20,40,50,20],
+                    layout,
+                    modes,
+                    defaultEdge:{
+                        style:{
+                            lineWidth:3
+                        }
                     }
-                }
-            });
-            //@ts-ignore
-            graph.data(TopoData(data.network))
-            graph.render();
+                });
+                //@ts-ignore
+                graph.data(TopoData(data.network));
+                graph.render();
+            }
         })
     },[])
 
     //TODO:执行两次，渲染两个Graph
     useEffect(()=>{
-        if (!graph){
-            initGraph(graph);
-        }
+        console.log("test");
+        initGraph(graph);
     },[])
 
     // @ts-ignore
     return (<MainCard title="网络拓扑可视化" >
-            <Grid container spacing={gridSpacing}>
-                {/*@ts-ignore*/}
-                <Grid item xs={6} sm={12} >
-                    {!loading && <div ref={topoContainer}></div>}
+                <Grid xs={12} sm={12}
+                      sx={{
+                          position:"relative",
+                          overflow:"hidden",
+                      }}
+                >
+                    <div ref={topoContainer} style={{
+                        width:"100%",
+                        height:"650px",
+                        //@ts-ignore
+                        border:`1px solid ${theme.palette.secondary[200]}`,
+                        borderRadius:"12px"
+                    }}></div>
                     {loading &&  <CircularProgress
-                        size={68}
+                        size={100}
                         sx={{
                             //@ts-ignore
                             color: theme.palette.secondary[200],
-                            position: 'absolute',
-                            top: -6,
-                            left: -6,
-                            zIndex: 1,
+                            position:"absolute",
+                            top:350,
+                            left:650
                         }}
                     />}
                 </Grid>
-                <Grid item xs={6} sm={12}>下半区</Grid>
-            </Grid>
         </MainCard>)
 }
 

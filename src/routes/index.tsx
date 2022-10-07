@@ -8,8 +8,9 @@ const DashboardDefault =Loadable(lazy(()=>import("@/views/Dashboard/Dashboard"))
 
 //网络管理路由
 
-const Topo =Loadable(lazy(()=>import("@/views/NetworkList/Topo")))
-
+// const Topo =Loadable(lazy(()=>import("@/views/NetworkList/Topo")))
+// const Topo =lazy(()=>import("@/views/NetworkList/Topo"))
+import Topo from "@/views/NetworkList/Topo"
 
 //
 export const routes =[
