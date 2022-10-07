@@ -1,6 +1,15 @@
 import { MenuGroupType } from "@/menu/menuType";
 
-import {IconDashboard, IconKey, IconPalette, IconShadow, IconTypography, IconWindmill} from '@tabler/icons';
+import {
+    IconDashboard,
+    IconList,
+    IconAccessPoint,
+    IconDeviceComputerCamera,
+    IconDeviceDesktop,
+    IconServer,
+    IconAffiliate,
+    IconTypography
+} from '@tabler/icons';
 
 const dashboard:MenuGroupType ={
     id: 'dashboard',
@@ -18,94 +27,100 @@ const dashboard:MenuGroupType ={
     ]
 }
 
-const pages = {
-    id: 'pages',
-    title: 'Pages',
-    caption: 'Pages Caption',
+const networklist:MenuGroupType = {
+    id: 'networkmanage',
+    title: '网络管理',
     type: 'group',
     children: [
         {
-            id: 'authentication',
-            title: 'Authentication',
-            type: 'collapse',
-            icon: IconKey,
+            id: 'networklist',
+            title: '网络列表',
+            type: 'item',
+            icon: IconList,
+            url: '/networkmanage/networklist',
+        },
+        {
+            id: 'topo',
+            title: '拓扑可视化',
+            type: 'item',
+            icon: IconAccessPoint,
+            url: '/networkmanage/topo',
+        },
+    ]
+};
 
-            children: [
+const datamonitor:MenuGroupType = {
+    id: 'datamonitor',
+    title: '数据监测',
+    type: 'group',
+    children: [
+        {
+            id: 'camera',
+            title: '摄像头',
+            type: 'item',
+            url: '/datamonitor/camera',
+            icon: IconDeviceComputerCamera,
+            breadcrumbs: false
+        },
+        {
+            id: 'computer',
+            title: '用户主机',
+            type: 'item',
+            url: '/datamonitor/computer',
+            icon: IconDeviceDesktop,
+            breadcrumbs: false
+        },
+        {
+            id: 'server',
+            title: '服务器',
+            type: 'item',
+            url: '/datamonitor/server',
+            icon: IconServer,
+            breadcrumbs: false
+        },
+        {
+            id: 'topo',
+            title: '网络设备',
+            type: 'collapse',
+            icon: IconAffiliate,
+            children:[
                 {
-                    id: 'login3',
-                    title: 'Login',
+                    id: 'switch',
+                    title: '交换机',
                     type: 'item',
-                    url: '/pages/login/login3',
-                    target: true
+                    url: '/topo/switch',
+                    breadcrumbs: false
                 },
                 {
-                    id: 'register3',
-                    title: 'Register',
+                    id: 'link',
+                    title: '链路',
                     type: 'item',
-                    url: '/pages/register/register3',
-                    target: true
+                    url: '/topo/link',
+                    breadcrumbs: false
                 }
             ]
         }
     ]
 };
 
-const utilities = {
-    id: 'utilities',
-    title: 'Utilities',
+const sysfeature:MenuGroupType ={
+    id: 'sysfeature',
+    title: '系统功能',
     type: 'group',
-    children: [
+    children:[
         {
             id: 'util-typography',
-            title: 'Typography',
+            title: '功能一',
             type: 'item',
             url: '/utils/util-typography',
             icon: IconTypography,
             breadcrumbs: false
-        },
-        {
-            id: 'util-color',
-            title: 'Color',
-            type: 'item',
-            url: '/utils/util-color',
-            icon: IconPalette,
-            breadcrumbs: false
-        },
-        {
-            id: 'util-shadow',
-            title: 'Shadow',
-            type: 'item',
-            url: '/utils/util-shadow',
-            icon: IconShadow,
-            breadcrumbs: false
-        },
-        {
-            id: 'icons',
-            title: 'Icons',
-            type: 'collapse',
-            icon: IconWindmill,
-            children: [
-                {
-                    id: 'tabler-icons',
-                    title: 'Tabler Icons',
-                    type: 'item',
-                    url: '/icons/tabler-icons',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'material-icons',
-                    title: 'Material Icons',
-                    type: 'item',
-                    url: '/icons/material-icons',
-                    breadcrumbs: false
-                }
-            ]
         }
     ]
-};
+}
 
 const menuItems ={
-    items:[dashboard,pages,utilities] as Array<MenuGroupType>
+    items:[dashboard,networklist,datamonitor,sysfeature] as Array<MenuGroupType>
 }
 
 export default menuItems;
